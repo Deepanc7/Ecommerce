@@ -1,12 +1,12 @@
 package com.auth.Repository;
 
 import com.auth.Entity.UserRegisterEntity;
-import com.auth.Users;
 import com.auth.Util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,7 +21,7 @@ public class UserRegisterEntityRepository {
         }
     }
 
-    public Optional<UserRegisterEntity> findUserByUsername(String username) {
+    public Optional<UserRegisterEntity> findByUsername(String username) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return Optional.ofNullable(session.get(UserRegisterEntity.class, username));
         }
@@ -40,6 +40,12 @@ public class UserRegisterEntityRepository {
             Transaction tx = session.beginTransaction();
             session.merge(user);
             tx.commit();
+        }
+    }
+
+    public List<UserRegisterEntity> findAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM UserRegisterEntity", UserRegisterEntity.class).list();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.auth.Controller;
 
+import com.auth.DTO.UsersResponse;
 import com.auth.Entity.UserRegisterEntity;
 import com.auth.Service.UserRegisterEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -29,8 +32,8 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public String getUserDetails() {
+    public List<UsersResponse> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "Fetched user details successfully";
+        return userRegisterEntityService.getAllUsers();
     }
 }
