@@ -2,6 +2,7 @@ package com.auth.Config;
 
 import com.auth.AuthenticationProviders.JwtAuthenticationProvider;
 import com.auth.Filter.JWTAuthenticationFilter;
+import com.auth.Filter.JWTRefreshFilter;
 import com.auth.Filter.JWTValidationFilter;
 import com.auth.Util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +61,17 @@ public class SecurityConfig {
 
         JWTValidationFilter jwtValidationFilter = new JWTValidationFilter(authenticationManager);
 
+        JWTRefreshFilter jwtRefreshFilter = new JWTRefreshFilter(jwtUtil, authenticationManager);
+
         httpSecurity.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/user-register").permitAll()
                 .anyRequest().authenticated())
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(jwtValidationFilter, JWTAuthenticationFilter.class);
+                .addFilterAfter(jwtValidationFilter, JWTAuthenticationFilter.class)
+                .addFilterAfter(jwtRefreshFilter, JWTValidationFilter.class);
         return httpSecurity.build();
     }
 
