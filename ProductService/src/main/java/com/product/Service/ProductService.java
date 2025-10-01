@@ -1,5 +1,6 @@
 package com.product.Service;
 
+import com.product.Entity.Category;
 import com.product.Entity.Product;
 import com.product.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ProductService {
         return productRepository.addProduct(product);
     }
 
-
+    public Category createCategory(Category category) {
+        return productRepository.addCategory(category);
+    }
 
 }
