@@ -2,11 +2,13 @@ package com.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication(exclude = {
         org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class,
         org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration.class
 })
+@EntityScan(basePackages = "com.auth.Entity")
 public class SpringbootApplication {
 
     public static void main(String[] args) {

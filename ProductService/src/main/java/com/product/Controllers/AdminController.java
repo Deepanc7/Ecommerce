@@ -26,4 +26,6 @@ public class AdminController {
     public ResponseEntity<Category> addProduct(@RequestBody Category category) {
         return ResponseEntity.ok(productService.createCategory(category));
     }
+
+    
 }
