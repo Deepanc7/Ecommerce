@@ -31,7 +31,7 @@ public class UserRegisterEntityService implements UserDetailsService {
     }
 
     public UserDetails save(UserRegisterEntity user) {
-        return userRegisterEntityRepository.saveUser(user);
+        return userRegisterEntityRepository.save(user);
     }
 
     public List<UsersResponse> getAllUsers() {
