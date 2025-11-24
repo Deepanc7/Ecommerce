@@ -33,7 +33,7 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UsersResponse> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userRegisterEntityService.getAllUsers();
