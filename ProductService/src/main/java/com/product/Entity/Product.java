@@ -1,13 +1,15 @@
 package com.product.Entity;
 
 import jakarta.persistence.*;
+import org.springframework.http.HttpStatusCode;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
-public class Product {
+public class Product implements HttpStatusCode {
 
     @Id
     @Column(nullable = false, updatable = false)
